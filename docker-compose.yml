@@ -1,0 +1,51 @@
+version: "3.5"
+services:
+  web:
+    stdin_open: true
+    container_name: react_beauty-web
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./web
+    volumes:
+      - /app/node_modules
+      - ./web/src:/src
+    ports:
+      - "8080:8080"
+  fake-api:
+    container_name: react_beauty-fake-api
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./api
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+  # graphql:
+  #   container_name: react_beauty-graphql
+  #   build:
+  #     dockerfile: Dockerfile.dev
+  #     context: ./graphql
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - /app/node_modules
+  #     - ./graphql:/app
+  #   environment:
+  #     - NODE_ENV=development
+  #     - FAKE_API=http://fake-api:3000
+  nginx:
+    stdin_open: true
+    container_name: react_beauty-nginx
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "9080:80"
+    depends_on:
+      - web
+      - fake-api
+networks:
+  default:
+    name: react_beauty-network

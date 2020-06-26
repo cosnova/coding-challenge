@@ -1,0 +1,124 @@
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import { useParams } from 'react-router-dom';
+
+// Master Page
+import Header from '../components/_masterPage/Header';
+import Footer from '../components/_masterPage/Footer';
+
+import { connect } from 'react-redux';
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    marginRight: theme.spacing(2)
+  },
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6)
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4)
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8)
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  cardMedia: {
+    paddingTop: '56.25%' // 16:9
+  },
+  cardContent: {
+    flexGrow: 1
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6)
+  }
+}));
+
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const Product = (props) => {
+  const classes = useStyles();
+
+  let { id } = useParams();
+
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <Header />
+      <main>
+        {/* Hero unit */}
+        <div className={classes.heroContent}>
+          <Container maxWidth="sm">
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              Product ID: {id}
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              This a sample of a product list comming from API
+            </Typography>
+            <div className={classes.filters}>
+              <Grid container spacing={2} justify="center">
+                <Grid item>
+                  <TextField id="standard-basic" label="Standard" />
+                </Grid>
+                <Grid item>
+                  <Select
+                    native
+                    label="Age"
+                    inputProps={{
+                      name: 'age',
+                      id: 'outlined-age-native-simple'
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    <option value={10}>Ten</option>
+                    <option value={20}>Twenty</option>
+                    <option value={30}>Thirty</option>
+                  </Select>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </div>
+        <Container className={classes.cardGrid} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4} />
+        </Container>
+      </main>
+      <Footer />
+    </React.Fragment>
+  );
+};
+
+export default connect()(Product);

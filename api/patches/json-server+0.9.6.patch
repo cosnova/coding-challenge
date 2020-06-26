@@ -1,0 +1,117 @@
+patch-package
+--- a/node_modules/json-server/lib/server/router/plural.js
++++ b/node_modules/json-server/lib/server/router/plural.js
+@@ -6,6 +6,7 @@ var pluralize = require('pluralize');
+ var write = require('./write');
+ var getFullURL = require('./get-full-url');
+ var utils = require('../utils');
++const util = require('util');
+ 
+ module.exports = function (db, name) {
+   // Create router
+@@ -34,6 +35,57 @@ module.exports = function (db, name) {
+     });
+   }
+ 
++  function include(resource, r, e) {
++    if(util.isNullOrUndefined(resource)) return;    
++    e && [].concat(e)
++        .forEach((relationship) => {
++            if (db.get(relationship).value) {
++                let singularResource = pluralize.singular(r);
++                let singularRelationship = pluralize.singular(relationship);
++                let manyMany = null;
++
++                // this table lookup could be cached
++
++                if(`_${singularResource}_${singularRelationship}` in db.__wrapped__) {
++                    // e.g. user_group
++                    manyMany = `_${singularResource}_${singularRelationship}`;
++                } else if (`_${singularRelationship}_${singularResource}` in db.__wrapped__) {
++                    // e.g. group_user
++                    manyMany = `_${singularRelationship}_${singularResource}`;
++                } else if (`_${r}_${relationship}` in db.__wrapped__) {
++                    // e.g. users_groups
++                    manyMany = `_${r}_${relationship}`;
++                } else if (`_${relationship}_${r}` in db.__wrapped__) {
++                    // e.g. groups_users
++                    manyMany = `_${relationship}_${r}`;
++                }
++
++                if(manyMany == null) return;
++
++                // assumes many-many tables are firstId, secondId relations.
++                const relationshipKey = `${singularRelationship}Id`;
++                const resourceKey = `${singularResource}Id`;
++
++                const joinQuery = {};
++                joinQuery[resourceKey] = resource.id;
++
++                const items = db.get(manyMany).filter(joinQuery).value();
++                if(util.isNullOrUndefined(items)) {
++                    // not found
++                    resource[relationship] = [];
++                    return;
++                }
++                const ids = items.map((item) => item[relationshipKey]);
++
++                const related = db.get(relationship).filter((elem) => {
++                    return ids.includes(elem.id);
++                }).value();
++
++                resource[relationship] = related;
++            }
++        });
++  }
++
+   // GET /name
+   // GET /name?q=
+   // GET /name?attr=&attr=
+@@ -55,6 +107,7 @@ module.exports = function (db, name) {
+     var _limit = req.query._limit;
+     var _embed = req.query._embed;
+     var _expand = req.query._expand;
++    var _include = req.query._include;
+     delete req.query.q;
+     delete req.query._start;
+     delete req.query._end;
+@@ -63,6 +116,7 @@ module.exports = function (db, name) {
+     delete req.query._limit;
+     delete req.query._embed;
+     delete req.query._expand;
++    delete req.query._include;
+ 
+     // Automatically delete query parameters that can't be found
+     // in the database
+@@ -186,10 +240,11 @@ module.exports = function (db, name) {
+       chain = chain.slice(_start, _start + _limit);
+     }
+ 
+-    // embed and expand
++    // embed, expand and include
+     chain = chain.cloneDeep().forEach(function (element) {      
+       embed(element, _embed);
+       expand(element, _expand);
++      include(element, name, _include);
+     });
+ 
+     res.locals.data = chain.value();
+@@ -201,6 +256,7 @@ module.exports = function (db, name) {
+   function show(req, res, next) {
+     var _embed = req.query._embed;
+     var _expand = req.query._expand;
++    var _include = req.query._include;
+     var resource = db.get(name).getById(req.params.id).value();
+ 
+     if (resource) {
+@@ -215,6 +271,10 @@ module.exports = function (db, name) {
+       // /posts/1?_expand=user
+       expand(clone, _expand);
+ 
++      // Include many to many resources based on id
++      // /posts/1?_include=users
++      include(clone, name, _include);
++
+       res.locals.data = clone;
+     }
+ 

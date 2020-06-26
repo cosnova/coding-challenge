@@ -1,0 +1,15 @@
+FROM node:13-alpine
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /web/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["npm", "start"]
