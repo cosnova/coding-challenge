@@ -85,13 +85,6 @@ const Products = (props) => {
     );
   }, [props.products.nameFilter, props.products.brandFilter]);
 
-  const shortDescription = (description) => {
-    if (description.split(" ").length > 20) {
-      return description.replace(/^(.{20}[^\s]*).*/, "$1") + "...";
-    }
-    return description;
-  };
-
   const handleChangeBrand = (event) => {
     props.dispatch(filterBrand(event.target.value));
   };
@@ -125,10 +118,6 @@ const Products = (props) => {
               <Typography gutterBottom variant="h5" component="h2">
                 {product.name}
               </Typography>
-              <Typography gutterBottom variant="h6" component="h2">
-                {product.brand}
-              </Typography>
-              <Typography>{shortDescription(product.description)}</Typography>
             </CardContent>
             <CardActions>
               <Button
