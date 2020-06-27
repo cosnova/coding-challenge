@@ -7,25 +7,31 @@ import {
   SELECT_PRODUCT,
   FILTER_BRAND,
   FILTER_PRODUCT,
-} from "./actionTypes";
-import { axiosInstance } from "../axiosInstance";
+  FILTER_MAX_PRICE,
+  RESET_FILTERS
+} from './actionTypes';
+import { axiosInstance } from '../axiosInstance';
 
-export const fetchProducts = (brandFilter = "", queryName = "") => {
+export const fetchProducts = (brandFilter = '', queryName = '', maxPrice = null) => {
   return (dispatch) => {
     dispatch(fetchProductsStarted());
 
+    const params = {
+      brand: brandFilter
+    };
+
+    if (maxPrice && maxPrice > 0) {
+      params.price_less_than = maxPrice;
+    }
+
     axiosInstance
       .get(`/products.json`, {
-        params: {
-          brand: brandFilter,
-        },
+        params: params
       })
       .then((res) => {
         let products = res.data;
         if (queryName) {
-          products = products.filter((p) =>
-            p.name.toLowerCase().includes(queryName.toLowerCase())
-          );
+          products = products.filter((p) => p.name.toLowerCase().includes(queryName.toLowerCase()));
         }
         dispatch(fetchProductsSuccess(products));
       })
@@ -69,25 +75,34 @@ export const fetchBrands = () => {
 
 export const selectProduct = (selected) => ({
   type: SELECT_PRODUCT,
-  selected,
-});
-
-export const filterBrand = (brand) => ({
-  type: FILTER_BRAND,
-  brand,
+  selected
 });
 
 export const filterProduct = (query) => ({
   type: FILTER_PRODUCT,
-  query,
+  query
+});
+
+export const filterBrand = (brand) => ({
+  type: FILTER_BRAND,
+  brand
+});
+
+export const filterMaxPrice = (maxPrice) => ({
+  type: FILTER_MAX_PRICE,
+  maxPrice
+});
+
+export const resetFilters = () => ({
+  type: RESET_FILTERS
 });
 
 const fetchProductsStarted = () => {
   return {
     type: FETCH_PRODUCTS_STARTED,
     payload: {
-      isLoading: true,
-    },
+      isLoading: true
+    }
   };
 };
 
@@ -95,8 +110,8 @@ const fetchProductsSuccess = (list) => {
   return {
     type: FETCH_PRODUCTS_SUCCESS,
     payload: {
-      list,
-    },
+      list
+    }
   };
 };
 
@@ -104,8 +119,8 @@ const fetchBrandsStarted = () => {
   return {
     type: FETCH_BRANDS_STARTED,
     payload: {
-      brandIsLoading: true,
-    },
+      brandIsLoading: true
+    }
   };
 };
 
@@ -113,8 +128,8 @@ const fetchBrandsSuccess = (list) => {
   return {
     type: FETCH_BRANDS_SUCCESS,
     payload: {
-      list,
-    },
+      list
+    }
   };
 };
 
@@ -122,7 +137,7 @@ const fetchProductsFailed = (error) => {
   return {
     type: FETCH_PRODUCTS_FAILURE,
     payload: {
-      error,
-    },
+      error
+    }
   };
 };

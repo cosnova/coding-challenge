@@ -1,4 +1,4 @@
-version: "3.5"
+version: '3.5'
 services:
   web:
     stdin_open: true
@@ -11,13 +11,22 @@ services:
       - ./web/src:/src
     # ports:
     #   - "8080:8080"
+  test:
+    container_name: react_beauty-web-test
+    build:
+      dockerfile: Dockerfile.test.dev
+      context: ./web
+    volumes:
+      - /app/node_modules
+      - ./web/src:/app/src
+    command: npm test
   fake-api:
     container_name: react_beauty-fake-api
     build:
       dockerfile: Dockerfile.dev
       context: ./api
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - /app/node_modules
       - ./api:/app
@@ -42,7 +51,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "9080:80"
+      - '9080:80'
     depends_on:
       - web
       - fake-api

@@ -1,57 +1,53 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select";
-import { useParams } from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Rating from "@material-ui/lab/Rating";
+import React, { useEffect } from 'react';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Rating from '@material-ui/lab/Rating';
 
-import { fetchProduct } from "../store/products/actions";
+import { fetchProduct } from '../store/products/actions';
 
 // Master Page
-import Header from "../components/_masterPage/Header";
-import Footer from "../components/_masterPage/Footer";
+import Header from '../components/_masterPage/Header';
+import Footer from '../components/_masterPage/Footer';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(8, 0, 6)
   },
   heroButtons: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(4)
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    paddingBottom: theme.spacing(8)
   },
   card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: '56.25%' // 16:9
   },
   cardContent: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }));
 
 const Product = (props) => {
@@ -61,13 +57,13 @@ const Product = (props) => {
 
   //running only on the load
   useEffect(() => {
-    if (!props.products.selected || props.products.selected.id != id) {
+    if (!props.products.selected || props.products.selected.id !== id) {
       props.dispatch(fetchProduct(id, brand));
     }
   }, [id]);
 
   const ProductCard = () => {
-    if (!props.products.selected || props.products.loading) {
+    if (props.products.loading || !props.products.selected) {
       return (
         <Grid container direction="row" justify="center" alignItems="center">
           <CircularProgress color="secondary" />
@@ -114,38 +110,25 @@ const Product = (props) => {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
+          <Container maxWidth="lg">
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Product ID: {id}
             </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph
-            >
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
               This a sample of a product page loading from API
             </Typography>
             <Breadcrumbs aria-label="breadcrumb">
               <Link color="inherit" to="/">
                 Home
               </Link>
-              <Link color="inherit" onClick={props.history.goBack}>
+              <Link color="inherit" onClick={props.history.goBack} to="/">
                 Previous page
               </Link>
-              <Typography color="textPrimary">
-                {props.products.selected.name}
-              </Typography>
+              <Typography color="textPrimary">{props.products.selected.name}</Typography>
             </Breadcrumbs>
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} maxWidth="lg">
           {/* End hero unit */}
           <ProductCard />
         </Container>

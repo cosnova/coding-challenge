@@ -1,7 +1,7 @@
 {
   "scripts": {
     "prettier": "prettier --config .prettierrc --write",
-    "eslint": "eslint ./web ./graphql"
+    "eslint": "eslint ./web"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
