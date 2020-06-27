@@ -1,71 +1,77 @@
-import React, { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Select from '@material-ui/core/Select';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import React, { useEffect, useState } from "react";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Select from "@material-ui/core/Select";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 
-import { fetchProducts, fetchBrands } from '../redux/products/actions';
+import {
+  fetchProducts,
+  fetchBrands,
+  selectProduct,
+  filterBrand,
+  filterProduct,
+} from "../store/products/actions";
 
 // Master Page
-import Header from '../components/_masterPage/Header';
-import Footer from '../components/_masterPage/Footer';
+import Header from "../components/_masterPage/Header";
+import Footer from "../components/_masterPage/Footer";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
+    padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8)
+    paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column'
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%' // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   brandWrapper: {
     margin: theme.spacing(2),
-    position: 'relative'
+    position: "relative",
   },
   brandProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
     marginTop: -12,
-    marginLeft: -12
-  }
+    marginLeft: -12,
+  },
 }));
 
 const Products = (props) => {
   const classes = useStyles();
 
-  const [brand, setBrand] = useState(props.products.brandFilter);
-  const [productName, setProductName] = useState(props.products.nameFilter);
+  // const [brand] = useState(props.products.brandFilter);
+  // const [productName] = useState(props.products.nameFilter);
 
   //running only on the load
   useEffect(() => {
@@ -74,15 +80,29 @@ const Products = (props) => {
 
   //function to be watching brand and product name
   useEffect(() => {
-    props.dispatch(fetchProducts(brand));
-  }, [productName, brand]);
+    props.dispatch(
+      fetchProducts(props.products.brandFilter, props.products.nameFilter)
+    );
+  }, [props.products.nameFilter, props.products.brandFilter]);
+
+  const shortDescription = (description) => {
+    if (description.split(" ").length > 20) {
+      return description.replace(/^(.{20}[^\s]*).*/, "$1") + "...";
+    }
+    return description;
+  };
 
   const handleChangeBrand = (event) => {
-    setBrand(event.target.value);
+    props.dispatch(filterBrand(event.target.value));
   };
 
   const handleChangeProduct = (event) => {
-    setProductName(event.target.value);
+    props.dispatch(filterProduct(event.target.value));
+  };
+
+  const handleClickView = (product) => {
+    props.dispatch(selectProduct(product));
+    props.history.push(`/product/${product.brand}/${product.id}`);
   };
 
   const ProductsGrid = () => {
@@ -108,10 +128,14 @@ const Products = (props) => {
               <Typography gutterBottom variant="h6" component="h2">
                 {product.brand}
               </Typography>
-              <Typography>{product.description}</Typography>
+              <Typography>{shortDescription(product.description)}</Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" color="primary">
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => handleClickView(product)}
+              >
                 View
               </Button>
               <Typography gutterBottom variant="h3" component="h2">
@@ -136,7 +160,11 @@ const Products = (props) => {
   const SelectBrand = () => {
     return (
       <div className={classes.brandWrapper}>
-        <Select onChange={handleChangeBrand} value={brand} disabled={props.products.brandIsLoading}>
+        <Select
+          onChange={handleChangeBrand}
+          value={props.products.brandFilter}
+          disabled={props.products.brandIsLoading}
+        >
           {props.products.brandList.map((item) => (
             <MenuItem value={item} key={item}>
               {item}
@@ -158,10 +186,21 @@ const Products = (props) => {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
               Product List {props.products.list.length}
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
               This a sample of a product list comming from API
             </Typography>
             <div className={classes.filters}>
@@ -170,7 +209,7 @@ const Products = (props) => {
                   <TextField
                     id="standard-basic"
                     label="Product name"
-                    value={productName}
+                    value={props.products.nameFilter}
                     onChange={handleChangeProduct}
                   />
                 </Grid>

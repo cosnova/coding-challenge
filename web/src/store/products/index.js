@@ -3,17 +3,21 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_FAILURE,
   FETCH_BRANDS_SUCCESS,
-  FETCH_BRANDS_STARTED
-} from './actionTypes';
+  FETCH_BRANDS_STARTED,
+  SELECT_PRODUCT,
+  FILTER_PRODUCT,
+  FILTER_BRAND,
+} from "./actionTypes";
 
 const initialState = {
   list: [],
-  brandList: ['almay'],
-  nameFilter: '',
-  brandFilter: 'almay', // fixed first brand
+  brandList: ["almay"],
+  nameFilter: "",
+  brandFilter: "almay", // fixed first brand
   loading: false,
   brandIsLoading: false,
-  error: null
+  error: null,
+  selected: {},
 };
 
 export default function(state = initialState, action) {
@@ -21,32 +25,50 @@ export default function(state = initialState, action) {
     case FETCH_PRODUCTS_STARTED:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        list: action.payload.list
+        list: action.payload.list,
       };
     case FETCH_BRANDS_STARTED:
       return {
         ...state,
-        brandIsLoading: true
+        brandIsLoading: true,
       };
     case FETCH_BRANDS_SUCCESS:
       return {
         ...state,
         brandIsLoading: false,
         error: null,
-        brandList: action.payload.list
+        brandList: action.payload.list,
       };
     case FETCH_PRODUCTS_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error
+        error: action.payload.error,
+      };
+    case SELECT_PRODUCT:
+      return {
+        ...state,
+        loading: false,
+        selected: action.selected,
+      };
+    case FILTER_PRODUCT:
+      return {
+        ...state,
+        loading: false,
+        nameFilter: action.query,
+      };
+    case FILTER_BRAND:
+      return {
+        ...state,
+        loading: false,
+        brandFilter: action.brand,
       };
     default:
       return state;

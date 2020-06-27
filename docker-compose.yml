@@ -9,8 +9,8 @@ services:
     volumes:
       - /app/node_modules
       - ./web/src:/src
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
   fake-api:
     container_name: react_beauty-fake-api
     build:
