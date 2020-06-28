@@ -113,10 +113,10 @@ query products {
 =======
 ## Technical specs dockerized application
 * Docker multi-container application
-* Nginx (WebServer)
-* Node 13-alpine - React App
-* Node 11-alpine - GraphQL / Express
-* Node 11-alpine - Json Server + Faker
+   * Nginx (WebServer)
+   * Node 13-alpine - React App
+   * Node 11-alpine - GraphQL / Express
+   * Node 11-alpine - Json Server + Faker
 
 ## Technical specs React App
 * Components library [Material UI|https://material-ui.com/]
