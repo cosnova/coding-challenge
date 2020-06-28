@@ -125,6 +125,7 @@ query products {
 * Redux - last version available
 
 ### Folder structure
+```
 |-- web
      |-- public
        |-- index.html
@@ -136,7 +137,7 @@ query products {
        |-- [+] routes - configuration for URLs and base pages
        |-- [+] store - redux configs and app actions
        |-- [+] tests - jest automated test definition
-
+```
 
 
 # Coding-Challenge
