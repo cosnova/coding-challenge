@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
 
 import { fetchProduct } from '../store/products/actions';
 
@@ -47,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1
+  },
+  colors: {
+    display: 'flex',
+    direction: 'column'
   }
 }));
 
@@ -79,17 +84,33 @@ const Product = (props) => {
               title={props.products.selected.name}
             />
             <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h5" component="h1">
                 {props.products.selected.name}
               </Typography>
               <Typography gutterBottom variant="h6" component="h2">
                 Brand: {props.products.selected.brand}
               </Typography>
-              <Typography gutterBottom variant="h6" component="h2">
+              <Typography gutterBottom variant="h6" component="h3">
                 Category: {props.products.selected.category}
+              </Typography>
+              <Typography gutterBottom variant="h6" component="h3">
+                Product type: {props.products.selected.product_type}
               </Typography>
               <Rating value={props.products.selected.rating} readOnly />
               <Typography>{props.products.selected.description}</Typography>
+              <a href={props.products.selected.product_link} title={props.products.selected.name}>
+                Product link
+              </a>
+              <Typography component="p" className={classes.colors}>
+                {props.products.selected.product_colors &&
+                  props.products.selected.product_colors.map((c) => (
+                    <Box width={20} height={20} m={1} bgcolor={c.hex_value} key={c.hex_value} />
+                  ))}
+              </Typography>
+              <Typography component="p">
+                {props.products.selected.tag_list &&
+                  props.products.selected.tag_list.map((t) => <span key={t}>{t}</span>)}
+              </Typography>
             </CardContent>
             <CardActions>
               <Typography gutterBottom variant="h3" component="h2">

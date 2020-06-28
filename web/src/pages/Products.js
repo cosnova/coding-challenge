@@ -239,7 +239,6 @@ const Products = (props) => {
                     label="Product name"
                     value={props.products.nameFilter}
                     onChange={handleChangeProduct}
-                    disabled={props.products.loading}
                   />
                 </Grid>
                 <Grid item>

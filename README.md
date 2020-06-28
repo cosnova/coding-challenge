@@ -139,6 +139,42 @@ query products {
        |-- [+] tests - jest automated test definition
 ```
 
+## Testing GraphQL application
+1. Run the application with **docker-comnpose**
+2. Open the URL http://localhost:9080/graphql on the browser to see the GraphQL UI
+3. Test using the examples below:
+
+> Fetching the brand with All products
+```
+query brand {
+  brand (name: "colourpop") {
+    id
+    name
+    description
+    products {
+      id
+      name
+      price
+    }
+  }
+}
+```
+
+> Fetching products based on the tags and brands as nested object
+```
+query products {
+  products (product_tags: ["Canadian","Vegan"]){
+    id
+    name
+    price
+    brand {
+      id
+      name
+      description
+    }
+  }
+}
+```
 
 # Coding-Challenge
 
