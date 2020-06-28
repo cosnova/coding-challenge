@@ -4,9 +4,12 @@ package-lock.json
 .gitignore
 .prettierignore
 .gitignore
+.dockerignore
+
 Dockerfile
 Dockerfile.dev
 Dockerfile.test.dev
+
 CHANGELOG.md
 README.md
 .env

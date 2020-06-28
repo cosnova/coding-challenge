@@ -11,6 +11,7 @@ services:
       - ./web/src:/src
     # ports:
     #   - "8080:8080"
+
   test:
     container_name: react_beauty-web-test
     build:
@@ -20,6 +21,7 @@ services:
       - /app/node_modules
       - ./web/src:/app/src
     command: npm test
+
   fake-api:
     container_name: react_beauty-fake-api
     build:
@@ -30,19 +32,22 @@ services:
     volumes:
       - /app/node_modules
       - ./api:/app
-  # graphql:
-  #   container_name: react_beauty-graphql
-  #   build:
-  #     dockerfile: Dockerfile.dev
-  #     context: ./graphql
-  #   ports:
-  #     - "5000:5000"
-  #   volumes:
-  #     - /app/node_modules
-  #     - ./graphql:/app
-  #   environment:
-  #     - NODE_ENV=development
-  #     - FAKE_API=http://fake-api:3000
+
+  graphql:
+    container_name: react_beauty-graphql
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./graphql
+    ports:
+      - '5000:5000'
+    volumes:
+      - /app/node_modules
+      - ./graphql:/app
+    environment:
+      - NODE_ENV=development
+      - FAKE_API=http://fake-api:3000
+      - EXTERNAL_API=https://makeup-api.herokuapp.com/
+
   nginx:
     stdin_open: true
     container_name: react_beauty-nginx
@@ -55,6 +60,7 @@ services:
     depends_on:
       - web
       - fake-api
+
 networks:
   default:
     name: react_beauty-network

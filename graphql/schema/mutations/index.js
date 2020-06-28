@@ -4,10 +4,9 @@ const { GraphQLObjectType } = graphql;
 
 import _ from 'lodash';
 
-import categoriesMutations from './categories';
-import contactsMutations from './contacts';
+import brandsMutations from './brands';
 
 export default new GraphQLObjectType({
   name: 'Mutations',
-  fields: _.merge(categoriesMutations, contactsMutations)
+  fields: _.merge(brandsMutations)
 });

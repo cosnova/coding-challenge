@@ -35,7 +35,8 @@ app.listen(port, () => {
   logger.info('#################################');
   logger.info('✅ STARTING GRAPHQL SERVER ✅');
   logger.info('#################################\n\n');
-  logger.info(`✅ Requesting API on ${process.env.FAKE_API} ...\n`);
+  logger.info(`✅ Requesting Fake API on ${process.env.FAKE_API} ...\n`);
+  logger.info(`✅ Requesting External API on ${process.env.EXTERNAL_API} ...\n`);
   logger.info(
     `✅ App running on ${environment.toUpperCase()} mode and listening on port ${port} ...`
   );
