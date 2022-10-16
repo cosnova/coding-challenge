@@ -1,0 +1,69 @@
+.filterbar {
+    margin-bottom: 20px;
+}
+
+.filterbar:after {
+    content: " ";
+    display:block;
+    clear:both;
+}
+
+.filterbar__filter {
+    float:left;
+    margin-right: 1em;
+}
+
+.filterbar__label {
+    display:block;
+    font-size:12px;
+}
+
+.filterbar__select, .filterbar__input {
+    border-radius: 0;
+    border: 1px solid #000;
+    background: #fff;
+    padding: 10px;
+    color: #000;
+    font-family: Futura Now Text, sans-serif;
+}
+
+.result {
+    display:block;
+    color: #000;
+    text-decoration:none;
+    margin-bottom: 40px;
+}
+
+.result:hover {
+    color: #666;
+}
+
+.result:after {
+    content: "";
+    display:block;
+    clear: both;
+}
+
+.result__image-container {
+    width: 150px;
+    height: 150px;
+    float:left;
+}
+
+.result__image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.result__name {
+    padding-top:20px;
+    margin-left: 160px;
+    font-family: Futura Now Head, sans;
+    font-weight:700;
+    text-transform: uppercase;
+}
+
+.result__price {
+    margin-left: 160px;
+}
