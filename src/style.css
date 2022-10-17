@@ -1,0 +1,54 @@
+@font-face {
+    font-family: Futura Now Text;
+    src: url("https://cosnova.a.bigcontent.io/v1/static/FuturaNowTextLight") format("woff2"),
+    url("https://cosnova.a.bigcontent.io/v1/static/FuturaNowTextLight_1") format("woff");
+    font-style: normal;
+    font-weight: 300;
+    font-stretch: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Futura Now Headline;
+    src: url("https://cosnova.a.bigcontent.io/v1/static/FuturaNowHeadlineBold") format("woff"),
+    url("https://cosnova.a.bigcontent.io/v1/static/FuturaNowHeadlineBold_1") format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-display:swap;
+    font-family:Futura Now Text;
+    font-stretch:normal;
+    font-style:normal;
+    font-weight:500;
+    src:url(https://cosnova.a.bigcontent.io/v1/static/FuturaNowTextMedium) format("woff"),
+    url(https://cosnova.a.bigcontent.io/v1/static/FuturaNowTextMedium_1) format("woff2")
+}
+
+@font-face {
+    font-display:swap;
+    font-family:Futura Now Text;
+    font-stretch:normal;
+    font-style:normal;
+    font-weight:700;
+    src:url(https://cosnova.a.bigcontent.io/v1/static/FuturaNowTextBold) format("woff"),
+    url(https://cosnova.a.bigcontent.io/v1/static/FuturaNowTextBold_1) format("woff2")
+}
+
+body {
+    max-width: 900px;
+    margin:0 auto;
+    font-family: Futura Now Text,Futura,sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: .2px;
+    line-height: 35px;
+    text-transform: none;
+}
+
+.content {
+    padding: 0 10px;
+}

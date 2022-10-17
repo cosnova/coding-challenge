@@ -1,0 +1,96 @@
+.teaser {
+    background: #000;
+    color: #fff;
+    padding:30px;
+    margin-top:40px;
+    margin-left:30px;
+}
+
+.teaser__image {
+    max-width:100%;
+    margin:-60px 0 0 -60px;
+}
+
+.teaser__text {
+    margin-bottom: -35px;
+}
+
+.teaser__topline {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size:14px;
+    margin: 0;
+}
+
+.teaser__headline {
+    display:block;
+    font-display:swap;
+    font-family:Futura Now Headline,Futura Now Text,Futura,sans;
+    font-weight:700;
+    -webkit-hyphens:none;
+    hyphens:none;
+    overflow-wrap:break-word;
+    text-transform:uppercase;
+    margin:0 0 10px;
+}
+
+.teaser__copy {
+    margin: 10px 0 20px;
+    font-size:16px;
+    line-height:1.6;
+}
+
+.teaser__button {
+    width: auto;
+    cursor:pointer;
+    overflow:hidden;
+    padding:16px;
+    position:relative;
+    transform:translateZ(0);
+    border-radius:0 12px 0 12px;
+    text-decoration:none;
+    background: linear-gradient(270deg,#ff6047,#c850f5 50%,#693abd);
+    color:#fff;
+    line-height:1;
+    text-transform:uppercase;
+    font-size:12px;
+    font-weight:500;
+    font-family:Futura Now Text, Futura, sans;
+    z-index:1;
+}
+
+.teaser__button:before {
+    z-index: -1;
+    bottom:0;
+    content:"";
+    left:0;
+    position:absolute;
+    right:0;
+    top:0;
+    transform:scaleX(0);
+    transform-origin:50%;
+    transition:all .25s ease-out;
+    background: linear-gradient(270deg,#e65640,#b448dc 50%,#5e34aa);
+    border-radius:0 12px 0 12px;
+}
+
+.teaser__button:hover:before {
+    transform:scaleX(1)
+}
+
+@media (min-width:888px) {
+    .teaser {
+        margin-top:80px;
+        margin-left:30px;
+    }
+
+    .teaser__image {
+        margin:0 0 0 -60px;
+        width: 400px;
+        float:left;
+    }
+
+    .teaser__text {
+        margin-left: 400px;
+    }
+}
