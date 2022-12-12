@@ -28,3 +28,38 @@ Is a list of products. The list should always ONLY contain the products of one s
 
 ### Version Control
 Please fork this Repository to start working. Commit your changes in a style as if you would be working a small team. 
+
+# Use instructions
+
+## Install
+
+```sh
+ npm install
+```
+
+## Run commands
+
+Start the development server.
+
+```sh
+npm start
+```
+
+Bundle the app into static files for production.
+
+```sh
+ npm run build
+```
+
+Starts the test runner.
+
+```sh
+  npm test
+```
+
+Removes this tool and copies build dependencies, configuration files
+and scripts into the app directory. If you do this, you can’t go back!
+
+```sh
+  npm run eject
+```
