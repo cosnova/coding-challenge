@@ -29,5 +29,3 @@ export const getProductDetails = async <T>(id: number | string, args: string = "
   }
 }
 
-// export getProducts;
-// export getProductDetails;
