@@ -1,30 +1,36 @@
-# Coding-Challenge
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## The Beauty List
+## Getting Started
 
-## Task
-The task is to create a simple Webapp consisting of two pages. The App is gonna be pure frontend and should be written in React. The App should be optimized for mobile phones. You will be using the MakeUp Api to feed your app with data: https://makeup-api.herokuapp.com/
-Please read the api instructions carefully, and only fetch what you need.
+First, run the development server:
 
-## The pages
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-### Page 1 - Home Page
-The homepage contains two elements:
-- A basic navigation with a link to the "List Page"
-- A teaser module that consists of an image, a headline, some text and a button that also links to the "List Page"
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Page 2 - List Page
-The list page contains two main components: a filter bar and a list of products.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-##### The Filter Bar
-The filterbar will be used to filter the products in the list. The filter bar consists of two inputs. A text input, and a select input.
-The Text input should filter the list by name and the select input should filter the list by brand.
-Both filter functionalitys should happen in realtime as the user changes something in the inputs. So NO submit or apply buttons.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-##### The List
-Is a list of products. The list should always ONLY contain the products of one specific brand. So make sure there is always one brand selected in the filter by default. If the filter, does not return any products, a text stating "No products to be displayed" should show. Each Item in the list should display the name of the product, the image and its price (including currency). Clicking on a product should redirect the user to the url (product link) provided by the API.
+## Learn More
 
+To learn more about Next.js, take a look at the following resources:
 
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### Version Control
-Please fork this Repository to start working. Commit your changes in a style as if you would be working a small team. 
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
