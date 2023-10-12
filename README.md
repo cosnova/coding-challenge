@@ -27,4 +27,4 @@ Is a list of products. The list should always ONLY contain the products of one s
 
 
 ### Version Control
-Please fork this Repository to start working. Commit your changes in a style as if you would be working a small team. 
+Please fork this Repository to start working. Commit your changes in a style as if you would be working a small team. Please create a pull request once you are done.
