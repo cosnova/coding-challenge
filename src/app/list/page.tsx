@@ -29,7 +29,6 @@ export default function Page() {
         }
     };
     const handleBrandChange = async (newBrand: Brands) => {
-        setFilteredProducts(null);
         const data = await getData(newBrand) as Product[];
         if(products) setFilteredProducts(data);
         setProducts(data);
