@@ -1,0 +1,21 @@
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@font-face {
+  font-family: 'Sachyma-Demo';
+  src:url('assets/fonts/Sachyma-Demo.ttf.woff') format('woff'),
+      url('assets/fonts/Sachyma-Demo.ttf.svg#Sachyma-Demo') format('svg'),
+      url('assets/fonts/Sachyma-Demo.ttf.eot'),
+      url('assets/fonts/Sachyma-Demo.ttf.eot?#iefix') format('embedded-opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: 'Sachyma-Demo';
+  font-size: 3.2em;
+  line-height: 1.1;
+}
