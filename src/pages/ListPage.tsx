@@ -1,5 +1,11 @@
+import FilterBar from '@/components/FilterBar.tsx'
+
 function ListPage() {
-  return <div>List Page</div>
+  return (
+    <div>
+      <FilterBar />
+    </div>
+  )
 }
 
 export default ListPage
