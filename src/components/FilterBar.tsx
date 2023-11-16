@@ -9,15 +9,18 @@ interface Props {
 
 function FilterBar({ brands, productQuery, onSelectName, onSelectBrand }: Props) {
   return (
-    <div>
+    <div className="flex flex-col-reverse gap-4 md:flex-row">
       <input
         type="text"
         onChange={(event) => onSelectName(event.target.value)}
+        placeholder="Search..."
+        className="rounded-md placeholder:italic placeholder:text-slate-400"
       />
       <select
         name="brand"
         onChange={(event) => onSelectBrand(event.target.value)}
         defaultValue={productQuery.brand}
+        className="rounded-md"
       >
         {brands.map((brand, index) => (
           <option
