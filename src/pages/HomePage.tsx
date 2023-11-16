@@ -1,5 +1,11 @@
+import Teaser from '@/components/Teaser.tsx'
+
 function HomePage() {
-  return <div>Home Page</div>
+  return (
+    <div>
+      <Teaser />
+    </div>
+  )
 }
 
 export default HomePage
