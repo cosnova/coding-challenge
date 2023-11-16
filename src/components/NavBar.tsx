@@ -2,9 +2,12 @@ import logo from '@/assets/react.svg'
 
 function NavBar() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 md:px-8">
       <nav className="flex h-16 items-center justify-between">
-        <a href={'/'} className="flex items-center gap-2">
+        <a
+          href={'/'}
+          className="flex items-center gap-2"
+        >
           <img
             src={logo}
             alt="logo"
