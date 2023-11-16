@@ -14,13 +14,13 @@ function ListPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 pb-4 md:px-8">
       <div className="flex flex-col items-center gap-4">
-      <FilterBar
-        brands={brands}
-        productQuery={productQuery}
-        onSelectName={(name) => setProductQuery({ ...productQuery, name })}
-        onSelectBrand={(brand) => setProductQuery({ ...productQuery, brand })}
-      />
-      <ProductList productQuery={productQuery} />
+        <FilterBar
+          brands={brands}
+          productQuery={productQuery}
+          onSelectName={(name) => setProductQuery({ ...productQuery, name })}
+          onSelectBrand={(brand) => setProductQuery({ ...productQuery, brand })}
+        />
+        <ProductList productQuery={productQuery} />
       </div>
     </div>
   )

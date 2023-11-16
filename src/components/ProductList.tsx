@@ -8,36 +8,47 @@ interface Props {
 function ProductList({ productQuery }: Props) {
   const { data, error, isLoading } = useProducts(productQuery)
 
-  if (error) return <p>{error}</p>
+  if (error) {
+    return <p className="text-lg font-bold text-red-600">{error}</p>
+  }
 
   const products = data.filter((product) =>
     product.name.toLowerCase().includes(productQuery.name.toLowerCase())
   )
 
-  if (!isLoading && products.length === 0) return <p>No products to be displayed</p>
+  if (!isLoading && products.length === 0) {
+    return <p className="text-center italic">No products to be displayed</p>
+  }
 
   return (
     <>
       {isLoading && <p>Loading...</p>}
       {products && (
-        <ul>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {products.map((product) => (
-            <li key={product.id}>
+            <div
+              key={product.id}
+              className="relative overflow-hidden rounded-lg border border-gray-300 bg-white p-2 group hover:shadow-md"
+            >
               <a
                 href={product.product_link}
                 target="_blank"
                 rel="noopener"
+                className="flex flex-col items-center gap-2 overflow-hidden rounded-lg group-hover:opacity-75"
               >
                 <img
                   src={product.image_link}
                   alt={product.name}
-                  height="64px"
+                  className="h-48"
                 />
-                {product.name} {product.price} {product.currency ?? '€'}
+                <p className="font-semibold">{product.name}</p>
+                <p>
+                  {product.price} {product.currency ?? '€'}
+                </p>
               </a>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </>
   )
