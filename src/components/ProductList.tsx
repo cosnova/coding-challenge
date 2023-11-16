@@ -28,7 +28,7 @@ function ProductList({ productQuery }: Props) {
           {products.map((product) => (
             <div
               key={product.id}
-              className="relative overflow-hidden rounded-lg border border-gray-300 bg-white p-2 group hover:shadow-md"
+              className="group relative overflow-hidden rounded-lg border border-gray-300 bg-white p-2 hover:shadow-md"
             >
               <a
                 href={product.product_link}
